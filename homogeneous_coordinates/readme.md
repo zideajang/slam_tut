@@ -1,45 +1,12 @@
-### Motivation
-- Cameras generate a projected image of the world
-- Euclidian geometry is suboptimal to describe the central projection
-- In Euclidian geometry the math can get difficult
-- Projective geometry is an alertnative algebraic represetation of geometric objects and transformations
-- Math becomes simpler
 
-From Homogeneous to Euclidian Co
+
 ### 齐次坐标
 齐次坐标，并不是新的坐标系，将 2 维坐标变为 3 维坐标，齐次坐标是一种记法。可以把 n 维空间中不明确的概念明确出来。齐次坐标可以用来区分(x,y)是坐标还是向量，那么什么是向量呢。
 - 向量是有长度和方向,在齐次坐标中添加 0 表示坐标(x,y,0)
 - 坐标，在齐次坐标中添加 1 表示坐标(x,y,1)
 齐次坐标用作变换的计算，首先我们需要理解我们要变换的是一个点(x,y),
-### 一切源于全景图
-我们主要研究一系列线性变换
- 
-### 运动模型
-- **平移**(translation)
-- **旋转**(rotation)
-$$ R = \left[ \begin{matrix}
-    \cos \theta & -\sin \theta \\
-    \sin \theta & \cos \theta 
-\end{matrix} \right] $$
-这个坐标变换需要用于描述变换之前和之后的点对应关系。
-- **缩放**(scale)
-$$ S = \left[ \begin{matrix}
-    s & 0 \\
-    0 & s 
-\end{matrix} \right] $$
-$$ S_{inverse} = \left[ \begin{matrix}
-    \frac{1}{s} & 0 \\
-    0 & \frac{1}{s} 
-\end{matrix} \right] $$
-上面 3 种变换都是大家比较熟悉的变换，也是一种相似变换。
 
-
-
-- **仿射变换** (affine)
-其他变换都比较好理解，仿射变换可能大家比较陌生，简单举一个例子就是讲正方形通过变换为平行四边形，所以平行关系依然是保留的。
-这样边之间的夹角信息就丢失了。
-从而
-- 透视(perspective)
+**透视**(perspective)
 透视变换会改变边之间的关系(例如原来并行边不在平行)
 
 但是现在问题是2x2 矩阵虽然可以描述缩放和旋转但是无法描述平移变换，为了表示平移变换我们引入齐次坐标(Homogeneous Coordinates)
@@ -172,3 +139,28 @@ $$
     0 & 0 & 1   
 \end{bmatrix} = \left[x \cos \theta - y \sin \theta, y \cos \theta + x \sin \theta, 1\right]
 $$
+### 变换
+- **平移**(translation)
+- **旋转**(rotation)
+$$ R = \left[ \begin{matrix}
+    \cos \theta & -\sin \theta \\
+    \sin \theta & \cos \theta 
+\end{matrix} \right] $$
+这个坐标变换需要用于描述变换之前和之后的点对应关系。
+- **缩放**(scale)
+$$ S = \left[ \begin{matrix}
+    s & 0 \\
+    0 & s 
+\end{matrix} \right] $$
+$$ S_{inverse} = \left[ \begin{matrix}
+    \frac{1}{s} & 0 \\
+    0 & \frac{1}{s} 
+\end{matrix} \right] $$
+上面 3 种变换都是大家比较熟悉的变换，也是一种相似变换。
+
+
+
+- **仿射变换** (affine)
+其他变换都比较好理解，仿射变换可能大家比较陌生，简单举一个例子就是讲正方形通过变换为平行四边形，所以平行关系依然是保留的。这样边之间的夹角信息就丢失了。
+从而
+- 
