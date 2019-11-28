@@ -5,6 +5,9 @@ P(A|B) = P(AB)/P(B)
 即事件 A 和事件 B 同时发生的概率等于在发生 A 的条件下 B 发生的概率乘以A的概率。
 同时发生概率 P(AB)=P(A)P(B|A)=P(B)P(A|B)
 
+![屏幕快照 2019-11-27 下午8.24.53.png](https://upload-images.jianshu.io/upload_images/8207483-0b24a426c272bc82.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+
 假设图中 B 事件的面积为 3， A 事件面积为 2 ，其余面积为 5 并且 A 事件和 B 事件交集为面积 1
 P(AB) = 1/10 这个从图中可以直观看出，我们来验证一下，P(B) = 3/10 P(AB) = 1/3 表示 A 事件和B 事件同时发生概率占 B 事件比例
 P(A|B) = 1/3 P(B) = 3/10 P(AB) = 1/3 x 3/10 = 1/10
@@ -15,7 +18,9 @@ P(A)
 我们要是想搞定机器学习和SLAM问题就得熟练掌握贝叶斯概率，应该做到张口就来。
 P(A|B) 是已知 B 发生后 A 的条件概率,也由于得知 B 的取值而被称作A的后验概率;
 
+![屏幕快照 2019-11-27 下午8.22.39.png](https://upload-images.jianshu.io/upload_images/8207483-2392302b96a58dcc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
+$$P(A) = \sum_{i=1}^n P(B_i)P(A|B_i)$$
 
 
 

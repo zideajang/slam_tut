@@ -1,3 +1,11 @@
+### 课程设计
+- 计算机视觉
+    - 基础知识
+    - 照相机
+    - 齐次坐标 
+- 概率
+- 模型
+
 ### 目标
 看了这么诱人的目标，大家一定流出口水。对这就是 SLAM 用一句最近刚学的流行词真香。
 ![slam_cover.jpeg](https://upload-images.jianshu.io/upload_images/8207483-f9eaa1650ec4e314.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
