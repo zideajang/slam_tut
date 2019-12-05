@@ -276,10 +276,14 @@ $$\vec{a} = a_1 \vec{i} + a_2 \vec{j}$$
 在用基函数和系数组合来表示一个函数
 $$\int_{-\pi}^{\pi}f(x)g(x)$$
 
+其实我们也可以将基向量扩展到向量a可以用任意一对正交向量来表示，假设向量a 是用向量 u 和 v 来表示，那么他们系数就是a1和a2计算如下。
+
 $$\begin{cases}
     \frac{\vec{a}\vec{u}}{\vec{u}\vec{u}} = a_1 \\
     \frac{\vec{a}\vec{v}}{\vec{v}\vec{v}} = a_2
 \end{cases}$$
+
+同样我们可以将基向量和系数来表达向量的方式扩展到基函数和系数来表示函数，只要两个函数式正交的就满足我们知道 sinx 和 cosx 就是一对正交函数，那么我们就可以利用上面学习的表示$a_n$ 和 $b_n$的系数
 
 $$\begin{aligned}
     a_n = \frac{\int_0^Tf(x)\sin(\frac{2\pi n}{T}x)dx}{\int_0^Tf(x)\sin^2(\frac{2\pi n}{T}x)} \\
@@ -287,15 +291,19 @@ $$\begin{aligned}
 \end{aligned}$$
 
 #### 欧拉公式
-
+我们可能已经了解了欧拉公式，这里原本也想介绍一下欧拉公式的推导过程，但是感觉这样似乎有点跑偏，毕竟我们是介绍 SLAM 的，所以欧拉公式如果感兴趣大家可自己找一些资料看一看这个著名的欧拉公式，其实我们用f(x)就是欧拉发明
 $$e^{it} = \cos t + i \sin t$$
 $$e^{-it} = \cos t - i \sin t$$
-
+利用欧拉公式我们能够进行推导
 $$\begin{cases}
-    \cos mt = e^{imt}+e^{-imt} \\
-    \sin nt = 
+    \cos mt = \frac{e^{imt}+e^{-imt}}{2} \\
+    \sin nt = \frac{e^{int} - e^{-int}}{2i}
 \end{cases}$$
 
+这样我们利用欧拉公式对上面公式进行变换就得到
+$$ f(x) = C + \sum_{n=1}^{\infty}(a_n \cos(\frac{2 \pi n}{T}x) + b_n \sin (\frac{2 \pi n}{T} x)) , c \in \mathbb{R}$$
+
+$$\Rightarrow \sum_{-\infty}^{+\infty}C_n e^{i\frac{2 \pi n x}{T}}$$
 
 #### 拉普拉斯变换
 信号分析都会用到拉普拉斯变换，感性的认知。对于基本公式，有了之前傅里叶变换基础拉布拉斯变换也就不难理解，因为拉布拉斯是傅里叶加强版。
@@ -329,3 +337,7 @@ $$h[m,n] = \sum{k,l} g[k,l] f[m+k,n+l]$$
 
 ##### 卷积
 $$h[m,n] = \sum{k,l} g[k,l] f[m-k,n-l]$$ 都是线性操作，好的性质两个滤波器依次处理，可以先对两个滤波器进行处理然后在进行。微分运算
+
+
+### 非线性滤波器
+3D DIC Photogram
