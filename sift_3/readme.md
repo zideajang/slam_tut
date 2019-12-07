@@ -68,3 +68,46 @@ $$\begin{cases}
     T = 0.04
 \end{cases}$$
 现在我们极值点查找是在 26 点上查找，以为包含该层上下2两层对应位置点。 
+
+在检测到极值点$X_0(x_0,y_0,\sigma_0)^T$做三元二阶的泰勒展开
+
+$$ f\left( \begin{bmatrix}
+    x \\
+    y \\
+    \sigma
+\end{bmatrix} \right) = f\left( \begin{bmatrix}
+    x_0 \\
+    y_0 \\
+    \sigma_0
+\end{bmatrix} \right) + \left[ \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y} , \frac{\partial f}{\partial \sigma}  \right] \left( \begin{bmatrix}
+    x \\
+    y \\
+    \sigma
+\end{bmatrix} - \begin{bmatrix}
+    x_0 \\
+    y_0 \\
+    \sigma_0
+\end{bmatrix}  \right) + $$
+
+$$ \frac{1}{2} \left( \begin{bmatrix}
+    x \\
+    y \\
+    \sigma
+\end{bmatrix} - \begin{bmatrix}
+    x_0 \\
+    y_0 \\
+    \sigma_0
+\end{bmatrix}  \right)^T \begin{bmatrix}
+     \frac{\partial f}{\partial x \partial x}, \frac{\partial f}{\partial y \partial x} , \frac{\partial f}{ \partial x \partial \sigma}  \\
+     \frac{\partial f}{\partial x \partial y}, \frac{\partial f}{\partial y \partial y} , \frac{\partial f}{ \partial y \partial \sigma}  \\
+     \frac{\partial f}{\partial x \partial \sigma}, \frac{\partial f}{\partial y \partial \sigma} , \frac{\partial f}{\partial \sigma \partial \sigma}  
+\end{bmatrix} \left( \begin{bmatrix}
+    x \\
+    y \\
+    \sigma
+\end{bmatrix} - \begin{bmatrix}
+    x_0 \\
+    y_0 \\
+    \sigma_0
+\end{bmatrix}  \right) $$
+
