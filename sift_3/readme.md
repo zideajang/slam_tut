@@ -51,7 +51,7 @@ $$ \sigma_0 = \sqrt{1.6^2 - 0.5^2}$$
 在2组会去第1组倒数第3层作为第2组第1层的高斯核的方差进行模糊，为什么取层就是为得到$2\sigma$
 
 ### 关键点位置确定
-关键点就是比较稳定()的点，而且包含许多信息的
+关键点就是比较稳定()的点，而且包含许多信息的，这些点通常是极值位置，因为极值位置就是很稳定，不过极值可以是最大也可以是最小值。在 harris。
 什么是关键点稳定性
 - 尺度
 - skew
@@ -59,17 +59,19 @@ $$ \sigma_0 = \sqrt{1.6^2 - 0.5^2}$$
 - 位移
 - 视角
 - 遮挡
-- 强度，色温
-- 
+- 强度、色温
 #### 阈值化
 
+现在我们极值点查找是在 26 点上查找，以为包含该层上下2两层对应位置点。 
 $$\begin{cases}
     abs(val) > 0.5 \times \frac{T}{n} \\
     T = 0.04
 \end{cases}$$
-现在我们极值点查找是在 26 点上查找，以为包含该层上下2两层对应位置点。 
+这里 T 是经验值，而 n 就是我们上面提到要找多少张图中取特征点的值，如果这个值要小于这个 0.5 * T/n 我们就认为这个点可能是噪声。
+#### 在高斯差分金字塔中找极值点
+现在找到极值点并不是真正的极值点，以为我们现在空间是离散空间中最小点，所以真正的极值点可能出现当前极值点的周围。而且我们现在将一个二维坐标内像素点值扩展到三维上，也就是添加一个表示不同模糊程度和大小程度的空间上。我们在尺度空间上也是离散的，所以我们现在要找到一个真正的极值点
 
-在检测到极值点$X_0(x_0,y_0,\sigma_0)^T$做三元二阶的泰勒展开
+首先在检测到极值点$X_0(x_0,y_0,\sigma_0)^T$做三元二阶的泰勒展开。
 
 $$ f\left( \begin{bmatrix}
     x \\
@@ -111,3 +113,40 @@ $$ \frac{1}{2} \left( \begin{bmatrix}
     \sigma_0
 \end{bmatrix}  \right) $$
 
+这里有关经验一眼看出来这这里我们 X 大写来表示上面向量，二用$\hat{X}$ 表示估计，也就是我们估计真正的极值点距离测量极值点距离。
+$$f(X) = f(X_0) + \frac{\partial f^T}{\partial X} \hat{X} + \frac{1}{2} \hat{X}^T \frac{\partial^2 f}{\partial X^2} \hat{X}$$
+
+那么这里根据泰勒展开，f(x) 就是可以看做在 x0 附近的函数，那么要找到函数真正的极值点就需要对f(x) 求导，f(x)导数为 0 的地方也就是函数极值点，也就是我们想要找到真正的极值点。
+
+$$\frac{\partial f(X)}{\partial X} = \frac{\partial f^T}{\partial X} + \frac{1}{2}\left( \frac{\partial^2 f}{\partial X^2} + \frac{\partial^2 f^T}{\partial X^2}\right) \hat{X} = \frac{\partial f^T}{\partial X} + \frac{\partial^2 f}{\partial X^2} \hat{X}$$
+
+导数为0就得到极值点距离 
+$$\hat{X} = - \frac{\partial^2 f^{-1}}{\partial X^2} \frac{\partial f}{\partial X}$$
+
+$$\begin{alignedat}
+f(x) = f(X_0) + \frac{\partial f^T}{\partial X} \hat{X} + \frac{1}{2}\left(-\frac{\partial^2 f^{-1}}{\partial X^2} \frac{\partial f}{\partial X} \right)^T \frac{\partial^2 f^{-1}}{\partial X^2}\left(-\frac{\partial^2 f^{-1}}{\partial X^2} \frac{\partial f}{\partial X} \right) \\
+    = f(X_0) + \frac{1}{2} \frac{\partial f^T}{\partial X} \hat{X}
+\end{alignedat}$$
+
+迭代次数限制，当三个分量(x,y,z)都小于 0.5 时候就可以停止迭代，或者迭代次数超过一个限制时候也会停止迭代，停止迭代后我们发现这个函数值还是没有收敛，就会舍去这个点。
+#### 舍去低对比度的点
+$$|f(X)| < \frac{T}{n}$$
+则舍去这个这个点
+
+#### 边缘效应的去除
+$$ H(x,y) = \begin{bmatrix}
+    D_xx(x,y) & D_xy(x,y) \\
+    D_xy(x,y) & D_yy(x,y) 
+\end{bmatrix}$$
+
+$$\begin{cases}
+    Tr(H) = D_xx + D_yy = \alpha + \beta \\
+    Det(H) = D_xxD_yy - (D_xy)^2 = \alpha \beta
+\end{cases}$$
+
+如何$Det(H) < 0$ 则去除 X 点
+$$\frac{Tr(H)^2}{Det(H)} = \frac{(\alpha + \beta)^2}{\alpha \beta} = \frac{(\gamma \beta + \beta)}{\gamma \beta^2} = \frac{(\gamma + 1)^2}{\gamma}$$
+
+如果不满足 
+$$\frac{Tr(H)^2}{Det(H)} < \frac{(\gamma + 1)^2}{\gamma}$$
+也将舍去 X
