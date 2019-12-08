@@ -10,9 +10,7 @@
 #### 特征描述
 梯度统计直方图或二进制字符串特征描述
 - BRIEF
-- ORB
-- BRISK
-- FREAK
+- 
 SVM 和 Sift
 作者 David Lowe 申请专利
 ![david_lowe.jpg](https://upload-images.jianshu.io/upload_images/8207483-6dfd995590e9f8ac.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
