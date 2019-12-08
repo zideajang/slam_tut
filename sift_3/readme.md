@@ -1,8 +1,29 @@
+#### 图像局部特征
+- 全局特征，容易受到
+#### 局部特征检测
+- (斑点)blob 稳定性好
+    - LOG
+    - DOH Hessian 矩阵
+- 角点(corner) 物体边缘拐角，两条直线 
+    - SIFT
+    - SURF
+#### 特征描述
+梯度统计直方图或二进制字符串特征描述
+- BRIEF
+- ORB
+- BRISK
+- FREAK
 SVM 和 Sift
 作者 David Lowe 申请专利
+![david_lowe.jpg](https://upload-images.jianshu.io/upload_images/8207483-6dfd995590e9f8ac.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+David Lowe在1999年所发表，2004年完善总结。并且听说他们在这个算法的 20 周年开一个 party 来庆祝 SIFT 算法。此算法有其专利，专利拥有者为英属哥伦比亚大学。只有在早期的 opencv 中提供该算法，在新版 opencv 已经不再提供该算法。
+
 ### 尺度空间
+
 #### 建立高斯差分金子塔
 SIFT 算法 是在不同的尺度空间上查找关键点，而尺度空间的获取需要使用高斯模糊来实现，Lindeberg 等人已证明高斯卷积核是实现尺度变换的唯一变换核，并且是唯一的线性核。本节先介绍高斯模糊算法。
+![difference_of_gaussian.png](https://upload-images.jianshu.io/upload_images/8207483-9b7ca515df06ee72.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 而且高斯核是唯一可以模糊近处清晰，远处模糊的(线性)卷积核。
 ##### 组和层的概念
@@ -69,6 +90,7 @@ $$\begin{cases}
 \end{cases}$$
 现在我们极值点查找是在 26 点上查找，以为包含该层上下2两层对应位置点。 
 
+![sift_feature_pointer.png](https://upload-images.jianshu.io/upload_images/8207483-6cba5edbae78b7bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 在检测到极值点$X_0(x_0,y_0,\sigma_0)^T$做三元二阶的泰勒展开
 
 $$ f\left( \begin{bmatrix}
